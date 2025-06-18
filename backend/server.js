@@ -18,7 +18,7 @@ const commentRoutes = require('./routes/comments');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+app.use(cors({ origin:['http://localhost:5173','https://docflow-pro.onrender.com'], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
