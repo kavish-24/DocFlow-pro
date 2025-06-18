@@ -31,12 +31,14 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-   res.cookie('token', token, {
+ res.cookie('token', token, {
   httpOnly: true,
-  secure: true,           // ✅ Required for cross-site cookies
-  sameSite: 'None',       // ✅ Allows sending cookies from different domain
-  maxAge: 24 * 60 * 60 * 1000, // Optional: 1 day
+  secure: false,     // ✅ allows use on http://localhost
+  sameSite: 'Lax',   // ✅ safe for local testing
+  maxAge: 24 * 60 * 60 * 1000,
 });
+
+
 
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -63,10 +65,10 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
     // Assuming you have generated your JWT token already
 res.cookie('token', token, {
-  httpOnly: true,           // Helps prevent XSS attacks
-  secure: true,             // ✅ Required for SameSite=None to work!
-  sameSite: 'None',         // ✅ Required to allow cross-origin cookies
-  maxAge: 7 * 24 * 60 * 60 * 1000, // Optional: 7 days
+  httpOnly: true,
+  secure: false,
+  sameSite: 'Lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
 res.status(200).json({ message: 'Login successful' });
