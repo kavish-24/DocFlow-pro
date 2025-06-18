@@ -31,7 +31,13 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: false });
+   res.cookie('token', token, {
+  httpOnly: true,
+  secure: true,           // ✅ Required for cross-site cookies
+  sameSite: 'None',       // ✅ Allows sending cookies from different domain
+  maxAge: 24 * 60 * 60 * 1000, // Optional: 1 day
+});
+
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
