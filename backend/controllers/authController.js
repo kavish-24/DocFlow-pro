@@ -55,9 +55,16 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: false });
+    // Assuming you have generated your JWT token already
+res.cookie('token', token, {
+  httpOnly: true,           // Helps prevent XSS attacks
+  secure: true,             // ✅ Required for SameSite=None to work!
+  sameSite: 'None',         // ✅ Required to allow cross-origin cookies
+  maxAge: 7 * 24 * 60 * 60 * 1000, // Optional: 7 days
+});
 
-    res.json({ message: 'Login successful' });
+res.status(200).json({ message: 'Login successful' });
+
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Failed to login' });
