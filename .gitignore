@@ -1,0 +1,29 @@
+# Root-level ignores
+.env
+*.log
+.DS_Store
+Thumbs.db
+
+# Node modules (frontend and backend)
+frontend/node_modules/
+backend/node_modules/
+
+# Build folders
+frontend/dist/
+frontend/.vite/
+frontend/build/
+backend/dist/
+backend/build/
+
+# Coverage / reports
+coverage/
+*.test.*
+*.spec.*
+
+# OS and editor junk
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
