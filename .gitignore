@@ -1,29 +1,34 @@
-# Root-level ignores
+# 🔒 Environment variables
 .env
-*.log
-.DS_Store
-Thumbs.db
+frontend/.env
+backend/.env
 
-# Node modules (frontend and backend)
-frontend/node_modules/
-backend/node_modules/
-
-# Build folders
-frontend/dist/
-frontend/.vite/
-frontend/build/
-backend/dist/
-backend/build/
-
-# Coverage / reports
+# 🧪 Test outputs & coverage
 coverage/
 *.test.*
 *.spec.*
 
-# OS and editor junk
-*.swp
-*.swo
-*.bak
+# 🗑️ Logs & junk
+*.log
 *.tmp
+*.bak
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# 📦 Node modules
+frontend/node_modules/
+backend/node_modules/
+
+# ⚙️ Build output (frontend & backend)
+frontend/dist/
+frontend/build/
+frontend/.vite/
+backend/dist/
+backend/build/
+
+# ⚠️ Git/other stray files
+frontend/gitignore
