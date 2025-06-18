@@ -8,7 +8,11 @@ const authRoutes = require('./routes/auth');
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://docflow-pro.onrender.com'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
