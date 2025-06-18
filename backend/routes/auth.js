@@ -34,7 +34,12 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: false });
+res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      maxAge: 24 * 60 * 60 * 1000
+    });
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
@@ -71,7 +76,8 @@ router.post('/login', async (req, res) => {
       throw new Error('JWT_SECRET is not defined in environment variables');
     }
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: false });
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true, // Required for cross-origin
+      maxAge: 24 * 60 * 60 * 1000 });
 
     console.log('Login successful for user:', user.email);
     res.json({ message: 'Login successful' });
