@@ -33,10 +33,12 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
  res.cookie('token', token, {
   httpOnly: true,
-  secure: false,     // ✅ allows use on http://localhost
-  sameSite: 'Lax',   // ✅ safe for local testing
-  maxAge: 24 * 60 * 60 * 1000,
+  secure: false,     // only for local testing
+  sameSite: 'Lax',   // allow localhost requests
+  path: '/',         // ensure it's sent on all routes
+  maxAge: 86400000   // 1 day
 });
+
 
 
 
@@ -66,10 +68,12 @@ router.post('/login', async (req, res) => {
     // Assuming you have generated your JWT token already
 res.cookie('token', token, {
   httpOnly: true,
-  secure: false,
-  sameSite: 'Lax',
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  secure: false,     // only for local testing
+  sameSite: 'Lax',   // allow localhost requests
+  path: '/',         // ensure it's sent on all routes
+  maxAge: 86400000   // 1 day
 });
+
 
 res.status(200).json({ message: 'Login successful' });
 
